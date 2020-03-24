@@ -1,0 +1,176 @@
+<div class="custom-product-container">
+  <div id="blocks" class="custom-product-flex-container">
+    {% for block in section.blocks %}
+    <div class="custom-product-flex-item">
+      <a {% if block.settings.new_tab == true %}target="_blank"{% endif %} href="{{ block.settings.link }}" class="custom-product-card-a">
+        {% if block.settings.image %}
+        <div class="custom-product-image-container">
+          <img src="{{ block.settings.image | img_url: 'master' }}" class="custom-product-image"/>
+        </div>
+        {% endif %}
+        <h3 class="custom-product-heading">{{ block.settings.heading }}</h3>
+        <h4 class="custom-product-subheading">{{ block.settings.sub_heading }}</h4>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="next-button">
+    <button id="loadMore" class="btn button">Load more...</button>
+    <button id="showLess" class="btn button" style="display:none;">Show less</button>
+  </div>
+</div>
+<script>
+$(function () {
+		x=3;
+    $('#blocks .custom-product-flex-item').slice(0, 3).show();
+    $('#loadMore').on('click', function (e) {
+        e.preventDefault();
+        x = x+6;
+        $('#blocks .custom-product-flex-item').slice(0, x).slideDown();
+    });
+});
+/*
+$(document).ready(function () {
+    size_li = $("#blocks .custom-product-flex-item").size();
+    x=3;
+    $('#blocks .custom-product-flex-item:lt('+x+')').show();
+    $('#loadMore').click(function () {
+        x= (x+6 <= size_li) ? x+6 : size_li;
+        $('#blocks .custom-product-flex-item:lt('+x+')').show();
+    });
+    $('#showLess').click(function () {
+        x=(x-5<0) ? 3 : x-6;
+        $('#blocks .custom-product-flex-item').not(':lt('+x+')').hide();
+    });
+}); */
+</script>
+<style>
+#blocks .custom-product-flex-item {
+  display:none;
+}
+.next-button {
+    margin: 40px auto;
+    text-align: center;
+}
+.custom-product-container{
+      width: 85%;
+    margin: 0 auto;
+}
+.custom-product-flex-container{
+      display: flex;
+    flex-wrap: wrap;
+}
+.custom-product-flex-item{
+  width: 33.3%;
+}
+.custom-product-card-a{
+  display: block;
+    margin: 20px;
+}
+.custom-product-image-container{
+  display: block;
+}
+.custom-product-image{
+      max-width: 100%;
+    height: auto;
+}
+.custom-product-heading{
+  text-align: center;
+}
+.custom-product-subheading{
+  text-align: center;
+}
+
+@media screen and (max-width: 768px){
+  .custom-product-flex-item{
+      width: 85%;
+    margin: 0 auto;
+}
+  .custom-product-flex-container{
+      flex-direction: column;
+}
+  .custom-product-card-a {
+    margin: 20px 0;
+}
+}
+  
+  @media screen and (max-width: 768px){
+  .custom-product-flex-item{
+      width: 95%;
+    margin: 0 auto;
+}
+}
+</style>
+
+{% schema %}
+{
+  "name": "Custom Products Block",
+  "settings": [
+    {
+      "id": "main_heading",
+      "type": "text",
+      "label": "Heading",
+      "default": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "select",
+      "name": "Add Product",
+      "settings": [
+        {
+          "id": "image",
+          "type": "image_picker",
+       		"label": "Image"
+        },
+        {
+          "id": "heading",
+          "type": "text",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "id": "sub_heading",
+          "type": "text",
+          "label": "Sub Heading",
+          "default": "Sub Heading"
+        },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link / URL"
+        },
+        {
+          "id": "new_tab",
+          "type": "checkbox",
+          "label": "Open link in new tab",
+		  "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Products",
+      "category": "Custom Products Blocks",
+      "blocks": [
+        { 
+          "type": "select"
+        },
+        {
+          "type": "select"
+        },
+        {
+          "type": "select"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
