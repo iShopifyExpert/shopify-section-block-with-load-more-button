@@ -20,8 +20,9 @@
   </div>
 </div>
 <script>
+// with slide down effect
 $(function () {
-		x=3;
+    x=3;
     $('#blocks .custom-product-flex-item').slice(0, 3).show();
     $('#loadMore').on('click', function (e) {
         e.preventDefault();
@@ -30,6 +31,7 @@ $(function () {
     });
 });
 /*
+// with instent display effect
 $(document).ready(function () {
     size_li = $("#blocks .custom-product-flex-item").size();
     x=3;
@@ -42,6 +44,21 @@ $(document).ready(function () {
         x=(x-5<0) ? 3 : x-6;
         $('#blocks .custom-product-flex-item').not(':lt('+x+')').hide();
     });
+}); */
+
+/*
+//Load on scroll js
+$(document).scroll(function() {
+  var y = $(this).scrollTop();
+  $(function () {
+	var x = 3;
+    $('#blocks .custom-product-flex-item').slice(0, 3).show();
+    var t = $('.custom-product-flex-item:visible').last().offset().top - 200;
+    if (y > t) {
+       x = x + 3;
+        $('.custom-product-flex-item:hidden').slice(0, x).slideDown();
+    }
+  });
 }); */
 </script>
 <style>
